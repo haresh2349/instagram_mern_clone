@@ -5,6 +5,9 @@ const PostSchema = new Schema({
   image: String,
   userId: String,
   comments: [],
+  likes: Number,
+  followers: [],
+  following: [],
 });
 
 const PostModel = new model("post", PostSchema);
