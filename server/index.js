@@ -7,8 +7,11 @@ require("dotenv").config();
 const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
+app.get("/", (req, res) => {
+  return res.send("WELCOME");
+});
 app.use("/auth", AuthRouter);
 app.use("/feed", PostsRouter);
 app.listen(PORT, async () => {
