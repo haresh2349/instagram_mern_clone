@@ -20,9 +20,43 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import instagramLogo from "../images/instagram_logo.png";
 import { AiFillFacebook } from "react-icons/ai";
+import { useToast } from "@chakra-ui/react";
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const [formData, setFormData] = useState({
+    email: "",
+    full_name: "",
+    username: "",
+    password: "",
+  });
+  const toast = useToast();
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  //
+  const handleSubmit = async () => {
+    console.log(formData);
+    let res = await fetch(
+      "https://insta-moc-server1.herokuapp.com/auth/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      }
+    );
+    let data = await res.json();
+    toast({
+      title: "Sign up successfully.",
+      description: data.message,
+      status: data.type,
+      duration: 2000,
+      isClosable: true,
+    });
+  };
   return (
     <Flex minH={"100vh"} justify={"center"} p={3} bg={"#FAFAFA"}>
       <Flex flexDirection={"column"} gridGap="1em" maxW={"350px"}>
@@ -76,6 +110,8 @@ export default function Signup() {
                   bg="#FAFAFA"
                   borderRadius={0}
                   fontSize="sm"
+                  name="email"
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl id="fullName">
@@ -85,6 +121,8 @@ export default function Signup() {
                   bg="#FAFAFA"
                   borderRadius={0}
                   fontSize="sm"
+                  name="full_name"
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl id="username" isRequired>
@@ -94,6 +132,8 @@ export default function Signup() {
                   bg="#FAFAFA"
                   borderRadius={0}
                   fontSize="sm"
+                  name="username"
+                  onChange={handleChange}
                 />
               </FormControl>
               <FormControl id="password" isRequired>
@@ -104,6 +144,8 @@ export default function Signup() {
                     bg="#FAFAFA"
                     borderRadius={0}
                     fontSize="sm"
+                    name="password"
+                    onChange={handleChange}
                   />
                   <InputRightElement h={"full"}>
                     <Button
@@ -148,6 +190,7 @@ export default function Signup() {
                   _hover={{
                     bg: "blue.500",
                   }}
+                  onClick={handleSubmit}
                 >
                   Sign up
                 </Button>
