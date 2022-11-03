@@ -6,6 +6,7 @@ const { PostsRouter } = require("./routes/posts");
 require("dotenv").config();
 const PORT = process.env.PORT;
 const app = express();
+console.log("XYZ");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
