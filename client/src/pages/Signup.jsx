@@ -68,7 +68,13 @@ export default function Signup() {
           px={6}
           bg={"#FFFF"}
         >
-          <Stack align={"center"} gridGap="10px">
+          <Flex
+            align={"center"}
+            gridGap="10px"
+            flexDirection={"column"}
+            justifyContent="center"
+            alignItems={"center"}
+          >
             <Box w={"200px"} h={"80px"}>
               <Image w={"100%"} h={"100%"} src={instagramLogo} />
             </Box>
@@ -95,12 +101,18 @@ export default function Signup() {
               <AiFillFacebook />
               <Text>Log in with Facebook</Text>
             </HStack>
-            <HStack mt="0" mb="10px" justifyContent={"space-between"}>
-              <Box w="110px" h="1px" bg="#C2C2C2"></Box>
+            <Flex
+              mt="0"
+              mb="10px"
+              gridGap={"10px"}
+              justifyContent={"space-between"}
+              alignItems="center"
+            >
+              <Box w="90px" h="1px" bg="#C2C2C2"></Box>
               <Text color={"#C2C2C2"}>OR</Text>
-              <Box w="110px" h="1px" bg="#C2C2C2"></Box>
-            </HStack>
-          </Stack>
+              <Box w="90px" h="1px" bg="#C2C2C2"></Box>
+            </Flex>
+          </Flex>
           <Box rounded={"lg"} px={8}>
             <Stack spacing={1}>
               <FormControl id="email" isRequired>
