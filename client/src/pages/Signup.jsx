@@ -12,7 +12,6 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
   Image,
   HStack,
 } from "@chakra-ui/react";
@@ -21,8 +20,13 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import instagramLogo from "../images/instagram_logo.png";
 import { AiFillFacebook } from "react-icons/ai";
 import { useToast } from "@chakra-ui/react";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../redux/AuthReducer/actions";
+import { useEffect } from "react";
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     full_name: "",
@@ -30,6 +34,8 @@ export default function Signup() {
     password: "",
   });
   const toast = useToast();
+  const dispatch = useDispatch();
+  const { isLoading, isError, type, message } = useSelector((store) => store);
   const handleChange = (e) => {
     let { name, value } = e.target;
     setFormData({
@@ -39,24 +45,35 @@ export default function Signup() {
   };
   //
   const handleSubmit = async () => {
-    console.log(formData);
-    let res = await fetch(
-      "https://insta-moc-server1.herokuapp.com/auth/signup",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      }
-    );
-    let data = await res.json();
-    toast({
-      title: "Sign up successfully.",
-      description: data.message,
-      status: data.type,
-      duration: 2000,
-      isClosable: true,
-    });
+    if (
+      formData.email &&
+      formData.username &&
+      formData.full_name &&
+      formData.password
+    ) {
+      dispatch(signupUser(formData));
+    } else {
+      toast({
+        title: "Please Enter valid details",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
+  useEffect(() => {
+    if (type) {
+      toast({
+        title: message,
+        status: type,
+        duration: 2000,
+        isClosable: true,
+      });
+      if (type == "success") {
+        navigate("/login");
+      }
+    }
+  }, [type]);
   return (
     <Flex minH={"100vh"} justify={"center"} p={3} bg={"#FAFAFA"}>
       <Flex flexDirection={"column"} gridGap="1em" maxW={"350px"}>
@@ -195,32 +212,35 @@ export default function Signup() {
               </Text>
               <Stack spacing={8} pt={2}>
                 <Button
-                  loadingText="Submitting"
+                  isLoading={isLoading}
                   size="sm"
-                  bg={"blue.400"}
+                  bg={"#0195F9"}
                   color={"white"}
                   _hover={{
-                    bg: "blue.500",
+                    bg: "blue",
                   }}
                   onClick={handleSubmit}
                 >
-                  Sign up
+                  Sign Up
                 </Button>
               </Stack>
             </Stack>
           </Box>
         </Box>
-        <Box
+        <Flex
           border={"1px solid #BDBDBD"}
           bg="#FAFAFA"
           textAlign={"center"}
+          justifyContent="center"
           p="20px"
         >
           Have an account?{" "}
-          <Link to="/login" color={"#00A2F8"}>
-            Log in
+          <Link to="/login">
+            <Text color={"#00A2F8"} ml="2px">
+              Log in
+            </Text>
           </Link>
-        </Box>
+        </Flex>
         <Box>
           <Text mb="15px" textAlign="center">
             Get the app.

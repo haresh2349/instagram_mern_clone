@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { UserModel } = require("../models/UserSchema");
 const jwt = require("jsonwebtoken");
 const AuthRouter = Router();
-
+require("dotenv").config();
 AuthRouter.post("/signup", async (req, res) => {
   try {
     const { password } = req.body;
