@@ -36,6 +36,9 @@ export const reducer = (state = initState, { type, payload }) => {
         isLoading: true,
       };
     case types.LOGIN_SUCCESS:
+      if (payload.token) {
+        localStorage.setItem("token", JSON.stringify(payload.token));
+      }
       return {
         ...state,
         isLoading: false,

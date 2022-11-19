@@ -25,7 +25,7 @@ import image1 from "../images/instaImg1.png";
 import image2 from "../images/instaImg2.png";
 import image3 from "../images/instaImg3.png";
 import image4 from "../images/instaImg4.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/AuthReducer/actions";
 export default function Login() {
@@ -36,11 +36,12 @@ export default function Login() {
   });
   const dispatch = useDispatch();
   const { isLoading, isError, token, type, message } = useSelector(
-    (store) => store
+    (store) => store.AuthReducer
   );
   const images = [image1, image2, image3, image4];
   let [count, setCount] = useState(0);
   const toast = useToast();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     let { name, value } = e.target;
     setFormData({
@@ -69,6 +70,7 @@ export default function Login() {
         duration: 2000,
         isClosable: true,
       });
+      navigate("/");
     }
   }, [token]);
   return (

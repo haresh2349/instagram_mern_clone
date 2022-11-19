@@ -35,7 +35,9 @@ export default function Signup() {
   });
   const toast = useToast();
   const dispatch = useDispatch();
-  const { isLoading, isError, type, message } = useSelector((store) => store);
+  const { isLoading, isError, type, message } = useSelector(
+    (store) => store.AuthReducer
+  );
   const handleChange = (e) => {
     let { name, value } = e.target;
     setFormData({

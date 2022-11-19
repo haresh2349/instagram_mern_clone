@@ -4,12 +4,14 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import AllRoutes from "./components/AllRoutes";
 import Sidebar from "./components/Sidebar";
+import Post from "./components/Post";
 
 function App() {
   return (
     <div className="App">
-      {/* <AllRoutes /> */}
-      <Sidebar />
+      <AllRoutes />
+      {/* <Sidebar /> */}
+      {/* <Post /> */}
     </div>
   );
 }
