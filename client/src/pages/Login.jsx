@@ -28,6 +28,7 @@ import image4 from "../images/instaImg4.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/AuthReducer/actions";
+import { getMyProfile } from "../redux/AppReducer/actions";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -50,8 +51,16 @@ export default function Login() {
     });
   };
   const handleSubmit = async () => {
-    console.log(formData);
-    dispatch(loginUser(formData));
+    if (formData.username && formData.password) {
+      dispatch(loginUser(formData));
+    } else {
+      toast({
+        title: "Enter valid Credentials",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
   useEffect(() => {
     let timer = setInterval(() => {
@@ -71,6 +80,7 @@ export default function Login() {
         isClosable: true,
       });
       navigate("/");
+      dispatch(getMyProfile());
     }
   }, [token]);
   return (

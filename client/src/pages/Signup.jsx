@@ -53,7 +53,26 @@ export default function Signup() {
       formData.full_name &&
       formData.password
     ) {
-      dispatch(signupUser(formData));
+      if (formData.full_name.length >= 5 && formData.password.length >= 5) {
+        dispatch(signupUser(formData));
+      } else {
+        if (formData.full_name.length < 5) {
+          toast({
+            title: "Fullname should have minimum five characters",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        }
+        if (formData.password.length < 5) {
+          toast({
+            title: "Password should have minimum five characters",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        }
+      }
     } else {
       toast({
         title: "Please Enter valid details",

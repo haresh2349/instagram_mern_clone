@@ -6,3 +6,6 @@
 .active > div p {
   font-weight: bold;
 }
+.sliderBox{
+  display: flex;
+}
