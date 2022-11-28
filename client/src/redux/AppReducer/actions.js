@@ -1,12 +1,12 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const token = JSON.parse(localStorage.getItem("token")) || "";
 export const getMyProfile = () => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.GET_MYPROFILE_REQUEST,
   });
-  axios("https://insta-moc-server1.herokuapp.com/feed/myProfile", {
+  return axios("https://insta-moc-server1.herokuapp.com/feed/myProfile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -25,15 +25,19 @@ export const getMyProfile = () => (dispatch) => {
     });
 };
 export const getAllposts = () => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
+  console.log(token, "from getalal");
   dispatch({
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
-  return axios("https://insta-moc-server1.herokuapp.com/feed/all", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  return axios
+    .get("https://insta-moc-server1.herokuapp.com/feed/all", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
     .then((res) => {
+      console.log(res);
       dispatch({
         type: types.GET_ALL_USER_POSTS_SUCCESS,
         payload: res.data,
@@ -48,6 +52,7 @@ export const getAllposts = () => (dispatch) => {
 };
 
 export const uploadPost = (payload) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.UPLOAD_POST_REQUEST,
   });
@@ -79,6 +84,7 @@ export const uploadPost = (payload) => (dispatch) => {
 };
 
 export const likeThePost = (postId) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   return fetch("https://insta-moc-server1.herokuapp.com/feed/like", {
     method: "POST",
     headers: {
@@ -96,6 +102,7 @@ export const likeThePost = (postId) => (dispatch) => {
     });
 };
 export const disLikeThePost = (postId) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   return fetch("https://insta-moc-server1.herokuapp.com/feed/unlike", {
     method: "POST",
     headers: {
@@ -114,6 +121,7 @@ export const disLikeThePost = (postId) => (dispatch) => {
 };
 
 export const commentToPost = (payload) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.POST_COMMENT_REQUEST,
   });
@@ -144,6 +152,7 @@ export const commentToPost = (payload) => (dispatch) => {
 };
 
 export const searchUsers = (username) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.GET_SEARCH_RESULTS_REQUEST,
   });
@@ -170,6 +179,7 @@ export const searchUsers = (username) => (dispatch) => {
 };
 
 export const getProfile = (id) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.GET_PROFILE_REQUEST,
   });
@@ -193,6 +203,7 @@ export const getProfile = (id) => (dispatch) => {
 };
 
 export const followTheUser = (id) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.FOLLOW_USER_REQUEST,
   });
@@ -219,6 +230,7 @@ export const followTheUser = (id) => (dispatch) => {
     });
 };
 export const unFollowTheUser = (id) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.UNFOLLOW_USER_REQUEST,
   });
@@ -246,6 +258,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
 };
 
 export const delteThePost = (postId) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   return fetch(
     `https://insta-moc-server1.herokuapp.com/feed/delete/${postId}`,
     {
@@ -265,6 +278,7 @@ export const delteThePost = (postId) => (dispatch) => {
 };
 
 export const editProfile = (url) => (dispatch) => {
+  const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.EDIT_PROFILE_REQUEST,
   });

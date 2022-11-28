@@ -80,7 +80,6 @@ export default function Login() {
         isClosable: true,
       });
       navigate("/");
-      dispatch(getMyProfile());
     }
   }, [token]);
   return (

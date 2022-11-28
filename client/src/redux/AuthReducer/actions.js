@@ -26,6 +26,7 @@ export const loginUser = (payload) => (dispatch) => {
   return axios
     .post("https://insta-moc-server1.herokuapp.com/auth/login", payload)
     .then((res) => {
+      localStorage.setItem("token", res.data.token);
       dispatch({
         type: types.LOGIN_SUCCESS,
         payload: res.data,

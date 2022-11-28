@@ -63,7 +63,6 @@ const Sidebar = () => {
     }
   };
   const postDetails = () => {
-    console.log(file);
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "insta-clone");
@@ -311,7 +310,11 @@ const Sidebar = () => {
                 </Text>
               )}
             </HStack>
-            <Modal size={"xl"} isOpen={isOpen} onClose={onClose}>
+            <Modal
+              size={{ base: "md", md: "xl" }}
+              isOpen={isOpen}
+              onClose={onClose}
+            >
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader

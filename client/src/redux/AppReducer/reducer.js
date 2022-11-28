@@ -1,7 +1,10 @@
 import * as types from "./actionTypes";
 
 const initState = {
-  isLoading: false,
+  postsLoading: false,
+  myProfileLoading: false,
+  profileLoading: false,
+  searchLoading: false,
   isError: false,
   myProfile: {},
   profile: {},
@@ -14,7 +17,7 @@ export const reducer = (state = initState, { type, payload }) => {
     case types.GET_MYPROFILE_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        myProfileLoading: true,
       };
     case types.GET_MYPROFILE_SUCCESS:
       if (payload) {
@@ -22,30 +25,30 @@ export const reducer = (state = initState, { type, payload }) => {
       }
       return {
         ...state,
-        isLoading: false,
+        myProfileLoading: false,
         myProfile: payload,
       };
     case types.GET_MYPROFILE_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        myProfileLoading: false,
         isError: true,
       };
     case types.GET_ALL_USER_POSTS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        postsLoading: true,
       };
     case types.GET_ALL_USER_POSTS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        allPosts: payload.allPosts,
+        postsLoading: false,
+        allPosts: payload && payload.allPosts,
       };
     case types.GET_ALL_USER_POSTS_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        postsLoading: false,
         isError: true,
       };
     case types.POST_COMMENT_REQUEST:
@@ -68,35 +71,35 @@ export const reducer = (state = initState, { type, payload }) => {
     case types.GET_SEARCH_RESULTS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        searchLoading: true,
       };
     case types.GET_SEARCH_RESULTS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        searchLoading: false,
         searchResults: payload,
       };
     case types.GET_SEARCH_RESULTS_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        searchLoading: false,
         isError: true,
       };
     case types.GET_PROFILE_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        profileLoading: true,
       };
     case types.GET_PROFILE_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        profileLoading: false,
         profile: payload,
       };
     case types.GET_PROFILE_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        profileLoading: false,
         isError: true,
       };
     case types.FOLLOW_USER_REQUEST:

@@ -5,6 +5,7 @@ import {
   HStack,
   Image,
   Input,
+  Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -12,16 +13,17 @@ import React from "react";
 import { IoMdCloseCircle } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { searchUsers } from "../redux/AppReducer/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyProfile, searchUsers } from "../redux/AppReducer/actions";
 import { useDebouncedCallback } from "use-debounce";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 const Searchbar = () => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const dispatch = useDispatch();
-  // const { searchResults } = useSelector((store) => store.AppReducer);
+  const { searchLoading, myProfile } = useSelector((store) => store.AppReducer);
   const debounced = useDebouncedCallback((value) => {
     if (value) {
       dispatch(searchUsers(value)).then((res) => {
@@ -37,6 +39,9 @@ const Searchbar = () => {
       setNotFound(false);
     }
   }, 1000);
+  useEffect(() => {
+    dispatch(getMyProfile());
+  }, []);
   console.log(notFound);
   return (
     <Flex
@@ -72,32 +77,55 @@ const Searchbar = () => {
           )}
         </HStack>
       </Box>
-      <Box>
-        {searchResults.length > 0 &&
-          searchResults?.map((user) => {
-            return (
-              <Link to={`/profile/${user?._id}`} key={user?._id}>
-                <HStack my="5px">
-                  <Image
-                    w="50px"
-                    h="50px"
-                    borderRadius={"50%"}
-                    src={user?.profilePhoto}
-                  />
-                  <Box fontSize={"14px"}>
-                    <Text fontWeight={"600"}>{user?.username}</Text>
-                    <Text color={"#808080"}>{user?.full_name}</Text>
-                  </Box>
-                </HStack>
-              </Link>
-            );
-          })}
-        {notFound && (
-          <Flex justifyContent={"center"} alignItems="center" height={"200px"}>
-            <Text>No Results found!</Text>
-          </Flex>
-        )}
-      </Box>
+      {searchLoading ? (
+        <Box pt="20px" textAlign={"center"}>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="md"
+          />
+        </Box>
+      ) : (
+        <Box>
+          {searchResults.length > 0 &&
+            searchResults?.map((user) => {
+              return (
+                <Link
+                  to={
+                    user?._id !== myProfile?.user?._id
+                      ? `/profile/${user?._id}`
+                      : "/profile"
+                  }
+                  key={user?._id}
+                >
+                  <HStack my="5px">
+                    <Image
+                      w="50px"
+                      h="50px"
+                      borderRadius={"50%"}
+                      src={user?.profilePhoto}
+                    />
+                    <Box fontSize={"14px"}>
+                      <Text fontWeight={"600"}>{user?.username}</Text>
+                      <Text color={"#808080"}>{user?.full_name}</Text>
+                    </Box>
+                  </HStack>
+                </Link>
+              );
+            })}
+          {notFound && (
+            <Flex
+              justifyContent={"center"}
+              alignItems="center"
+              height={"200px"}
+            >
+              <Text>No Results found!</Text>
+            </Flex>
+          )}
+        </Box>
+      )}
     </Flex>
   );
 };
