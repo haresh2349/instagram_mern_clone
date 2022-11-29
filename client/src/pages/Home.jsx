@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../components/Footer";
 import MobileNavbar from "../components/MobileNavbar";
 import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";

@@ -101,7 +101,7 @@ const Searchbar = () => {
                   }
                   key={user?._id}
                 >
-                  <HStack my="5px">
+                  <HStack p="10px">
                     <Image
                       w="50px"
                       h="50px"
