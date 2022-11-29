@@ -5,7 +5,7 @@ export const signupUser = (payload) => (dispatch) => {
     type: types.SIGNUP_REQUEST,
   });
   return axios
-    .post("https://insta-moc-server1.herokuapp.com/auth/signup", payload)
+    .post("https://instagram-moc-server.onrender.com/auth/signup", payload)
     .then((res) => {
       console.log(res);
       dispatch({
@@ -24,7 +24,7 @@ export const loginUser = (payload) => (dispatch) => {
     type: types.LOGIN_REQUEST,
   });
   return axios
-    .post("https://insta-moc-server1.herokuapp.com/auth/login", payload)
+    .post("https://instagram-moc-server.onrender.com/auth/login", payload)
     .then((res) => {
       localStorage.setItem("token", res.data.token);
       dispatch({

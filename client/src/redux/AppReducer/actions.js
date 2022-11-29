@@ -6,7 +6,7 @@ export const getMyProfile = () => (dispatch) => {
   dispatch({
     type: types.GET_MYPROFILE_REQUEST,
   });
-  return axios("https://insta-moc-server1.herokuapp.com/feed/myProfile", {
+  return axios("https://instagram-moc-server.onrender.com/feed/myProfile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -31,7 +31,7 @@ export const getAllposts = () => (dispatch) => {
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
   return axios
-    .get("https://insta-moc-server1.herokuapp.com/feed/all", {
+    .get("https://instagram-moc-server.onrender.com/feed/all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ export const uploadPost = (payload) => (dispatch) => {
   dispatch({
     type: types.UPLOAD_POST_REQUEST,
   });
-  fetch("https://insta-moc-server1.herokuapp.com/feed/upload", {
+  fetch("https://instagram-moc-server.onrender.com/feed/upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const uploadPost = (payload) => (dispatch) => {
 
 export const likeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/like", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/like", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export const likeThePost = (postId) => (dispatch) => {
 };
 export const disLikeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/unlike", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/unlike", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export const commentToPost = (payload) => (dispatch) => {
   dispatch({
     type: types.POST_COMMENT_REQUEST,
   });
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/comment", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export const searchUsers = (username) => (dispatch) => {
     type: types.GET_SEARCH_RESULTS_REQUEST,
   });
   return fetch(
-    `https://insta-moc-server1.herokuapp.com/feed/search/${username}`,
+    `https://instagram-moc-server.onrender.com/feed/search/${username}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -183,7 +183,7 @@ export const getProfile = (id) => (dispatch) => {
   dispatch({
     type: types.GET_PROFILE_REQUEST,
   });
-  return fetch(`https://insta-moc-server1.herokuapp.com/feed/profile/${id}`, {
+  return fetch(`https://instagram-moc-server.onrender.com/feed/profile/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -207,7 +207,7 @@ export const followTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.FOLLOW_USER_REQUEST,
   });
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/follow", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/follow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -234,7 +234,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.UNFOLLOW_USER_REQUEST,
   });
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/unfollow", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/unfollow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -260,7 +260,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
 export const delteThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
   return fetch(
-    `https://insta-moc-server1.herokuapp.com/feed/delete/${postId}`,
+    `https://instagram-moc-server.onrender.com/feed/delete/${postId}`,
     {
       method: "DELETE",
       headers: {
@@ -282,7 +282,7 @@ export const editProfile = (url) => (dispatch) => {
   dispatch({
     type: types.EDIT_PROFILE_REQUEST,
   });
-  return fetch("https://insta-moc-server1.herokuapp.com/feed/edit", {
+  return fetch("https://instagram-moc-server.onrender.com/feed/edit", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

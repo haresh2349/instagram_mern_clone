@@ -293,8 +293,8 @@ const OthersProfile = () => {
                   profile?.posts?.map((post) => {
                     return (
                       <Flex
-                        w={{ base: "100px", md: "200px", ld: "293px" }}
-                        h={{ base: "100px", md: "200px", ld: "293px" }}
+                        w={{ base: "100px", md: "200px", lg: "293px" }}
+                        h={{ base: "100px", md: "200px", lg: "293px" }}
                         alignItems={"center"}
                         key={post?._id}
                       >

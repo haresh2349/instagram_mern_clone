@@ -26,7 +26,7 @@ import { FaCompass, FaRegHeart } from "react-icons/fa";
 import { RiMessengerLine } from "react-icons/ri";
 import { SlMenu } from "react-icons/sl";
 import { MdHomeFilled, MdOutlineExplore } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   Modal,
@@ -99,16 +99,17 @@ const Sidebar = () => {
   return (
     <Box
       // display={{ base: "none", md: "flex" }}
-      w={{ md: "80px", lg: hideSidebar ? "80px" : "30%" }}
+      w={{ base: "100%", md: "80px", lg: hideSidebar ? "80px" : "30%" }}
       h={{ base: "70px", md: "100vh" }}
       position={"fixed"}
       top={{ md: "0" }}
-      bottom={{ base: "-5px", md: "0" }}
+      bottom={{ base: "-15px", md: "0" }}
       left={{ base: "0" }}
       right={{ base: "0", md: {} }}
+      bg="#FFF"
     >
       <Flex
-        w={{ lg: hideSidebar ? "auto" : "220px" }}
+        w={{ base: "100%", lg: hideSidebar ? "auto" : "220px" }}
         bg="#FFFF"
         borderRight={"1px solid #DBDBDB"}
         flexDirection={{ base: "row", md: "column" }}
@@ -118,16 +119,23 @@ const Sidebar = () => {
         p={{ base: "0", md: "20px 10px" }}
       >
         <Flex
+          w={{ base: "100%", lg: "220px" }}
           flexDirection={"column"}
+          pl={{ lg: "15px" }}
           gridGap="10px"
           alignItems={{
             base: "center",
-            md: hideSidebar ? "center" : "start",
+            md: "start",
           }}
+          justifyContent={{ base: "space-between", md: {} }}
         >
           <Flex
             display={{ base: "none", md: "flex" }}
-            justifyContent={{ md: "center", lg: "start" }}
+            justifyContent={{
+              base: "space-between",
+              md: "center",
+              lg: "start",
+            }}
             fontSize={"25px"}
             alignItems={hideSidebar ? "center" : "start"}
             p="10px"
@@ -138,11 +146,13 @@ const Sidebar = () => {
             cursor="pointer"
           >
             {/* {!hideSidebar ? ( */}
-            <Image
-              display={{ base: "none", lg: hideSidebar ? "none" : "block" }}
-              w="100px"
-              src={instagramLogo}
-            />
+            <Link to="/">
+              <Image
+                display={{ base: "none", lg: hideSidebar ? "none" : "block" }}
+                w="100px"
+                src={instagramLogo}
+              />
+            </Link>
             {/* ) : ( */}
             <Box
               display={{
@@ -157,13 +167,16 @@ const Sidebar = () => {
           </Flex>
           <Flex
             flexDirection={{ base: "row", md: "column" }}
-            gridGap="20px"
-            alignItems={hideSidebar ? "center" : "start"}
-            w="100%"
+            gridGap={{ base: "31px", md: "20px" }}
+            alignItems={{
+              base: "center",
+              md: hideSidebar ? "center" : "start",
+            }}
+            w={{ base: "auto", lg: !hideSidebar && "220px" }}
           >
             {/* <NavLink to="/"> */}
             <HStack
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               // alignItems={hideSidebar && "center"}
@@ -178,7 +191,6 @@ const Sidebar = () => {
               _hover={{ bg: "#EFEFEF" }}
             >
               <Box
-                m="auto"
                 fontSize={
                   window.location.pathname == "/" && isSearch === false
                     ? "35px"
@@ -205,7 +217,7 @@ const Sidebar = () => {
             </HStack>
             {/* </NavLink> */}
             <HStack
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               alignItems={hideSidebar && "center"}
@@ -231,7 +243,7 @@ const Sidebar = () => {
             </HStack>
             <HStack
               display={{ base: "none", md: "flex" }}
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               // alignItems={"center"}
@@ -252,7 +264,7 @@ const Sidebar = () => {
             </HStack>
             <HStack
               display={{ base: "none", md: "flex" }}
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               // alignItems={"center"}
@@ -271,7 +283,7 @@ const Sidebar = () => {
               )}
             </HStack>
             <HStack
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               // justifyContent="center"
@@ -290,7 +302,7 @@ const Sidebar = () => {
               )}
             </HStack>
             <HStack
-              w={{ md: "60px", lg: "auto" }}
+              w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
               h={{ md: "60px", lg: "auto" }}
               justifyContent={{ md: "center", lg: "start" }}
               // alignItems={"center"}
@@ -420,7 +432,7 @@ const Sidebar = () => {
             </Modal>
             <NavLink to="/profile">
               <HStack
-                w={{ md: "60px", lg: "auto" }}
+                w={{ md: "60px", lg: hideSidebar ? "auto" : "200px" }}
                 h={{ md: "60px", lg: "auto" }}
                 justifyContent={{ md: "center", lg: "start" }}
                 // alignItems={"center"}
@@ -441,9 +453,10 @@ const Sidebar = () => {
             </NavLink>
           </Flex>
         </Flex>
-        <Box>
+        <Box w="100%" display={{ base: "none", md: "block" }}>
           <Menu>
             <MenuButton
+              w="100%"
               p="10px"
               transition="all 0.2s"
               // _hover={{ bg: "gray.400" }}

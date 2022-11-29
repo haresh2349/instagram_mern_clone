@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MobileNavbar from "../components/MobileNavbar";
 import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
 import { getAllposts } from "../redux/AppReducer/actions";
@@ -26,11 +27,18 @@ const Home = () => {
         w={{ base: "100%", md: "80%", lg: "70%" }}
         position={"absolute"}
         left={{ base: "0", md: "20%", lg: "30%" }}
-        pt="20px"
+        pt={{ base: "0", md: "20px" }}
         zIndex={"-2"}
+        top={{ base: "60px", md: "10px" }}
       >
+        <MobileNavbar />
         {postsLoading ? (
-          <Flex w="70%" h="100vh" justifyContent={"center"} alignItems="center">
+          <Flex
+            w={{ base: "100%", md: "70%" }}
+            h="100vh"
+            justifyContent={"center"}
+            alignItems="center"
+          >
             <Spinner
               thickness="4px"
               speed="0.65s"

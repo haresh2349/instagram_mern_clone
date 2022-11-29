@@ -45,6 +45,7 @@ const Searchbar = () => {
   console.log(notFound);
   return (
     <Flex
+      display={{ base: "none", md: "flex" }}
       w="350px"
       position={"absolute"}
       top="0"
