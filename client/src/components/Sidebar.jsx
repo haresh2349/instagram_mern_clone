@@ -99,7 +99,7 @@ const Sidebar = () => {
   return (
     <Box
       // display={{ base: "none", md: "flex" }}
-      w={{ base: "100%", md: "80px", lg: hideSidebar ? "80px" : "30%" }}
+      w={{ base: "100%", md: "80px", lg: hideSidebar ? "80px" : "15%" }}
       h={{ base: "70px", md: "100vh" }}
       position={"fixed"}
       top={{ md: "0" }}
@@ -109,7 +109,7 @@ const Sidebar = () => {
       bg="#FFF"
     >
       <Flex
-        w={{ base: "100%", lg: hideSidebar ? "auto" : "220px" }}
+        w={{ base: "100%", lg: hideSidebar ? "auto" : "225px" }}
         bg="#FFFF"
         borderRight={"1px solid #DBDBDB"}
         flexDirection={{ base: "row", md: "column" }}
@@ -119,7 +119,7 @@ const Sidebar = () => {
         p={{ base: "0", md: "20px 10px" }}
       >
         <Flex
-          w={{ base: "100%", lg: "220px" }}
+          w={{ base: "100%", lg: !hideSidebar ? "220px" : "auto" }}
           flexDirection={"column"}
           pl={{ lg: "15px" }}
           gridGap="10px"

@@ -430,6 +430,7 @@ const Profile = () => {
       </Box>
       {showPost && (
         <Flex
+          bg={"rgba(0, 0, 0, 0.4)"}
           justifyContent={"center"}
           alignItems="center"
           position={"fixed"}
@@ -451,7 +452,7 @@ const Profile = () => {
           <Flex w={{ base: "100%", md: "80%" }} m="auto" alignItems={"center"}>
             <Box w="10%">
               <Button
-                bg="#FFF"
+                bg="none"
                 disabled={curr === 0}
                 onClick={() => setCurr(curr - 1)}
               >
@@ -523,7 +524,7 @@ const Profile = () => {
                       </Flex>
                       <Box
                         borderBottom={"1px solid #cecaca"}
-                        h={{ base: "1 00px", md: "400px" }}
+                        h={{ base: "100px", md: "400px" }}
                         overflowY={"scroll"}
                       >
                         {post?.caption != "" && (
@@ -702,7 +703,7 @@ const Profile = () => {
             })}
             <Box w="10%" textAlign={"end"}>
               <Button
-                bg="#FFF"
+                bg="none"
                 disabled={curr == myProfile?.posts?.length - 1}
                 onClick={() => setCurr(curr + 1)}
               >

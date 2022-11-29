@@ -49,7 +49,7 @@ const Searchbar = () => {
       w="350px"
       position={"absolute"}
       top="0"
-      left="105px"
+      left="80px"
       bottom={"0"}
       zIndex="9999"
       bg="#FFFF"
