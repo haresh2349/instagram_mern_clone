@@ -1,34 +1,42 @@
-const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const { UserModel } = require("../models/UserSchema");
 const jwt = require("jsonwebtoken");
-const AuthRouter = Router();
-require("dotenv").config();
-AuthRouter.post("/signup", async (req, res) => {
+
+const registerUser = async (req, res) => {
   try {
-    const { password } = req.body;
-    bcrypt.hash(password, 6, async function (err, hash) {
-      if (err) {
-        return res
-          .status(500)
-          .send({ type: "error", message: "Something went wrong" });
-      }
-      const newUser = new UserModel({ ...req.body, password: hash });
-      await newUser.save();
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email });
+    // console.log(user);
+    if (user) {
       return res
-        .status(201)
-        .send({ type: "success", message: "Account created successfully." });
-    });
+        .status(500)
+        .send({ type: "error", message: "User already exists" });
+    } else {
+      bcrypt.hash(password, 6, async function (err, hash) {
+        if (err) {
+          return res
+            .status(500)
+            .send({ type: "error", message: "Something went wrong" });
+        }
+        const newUser = new UserModel({ ...req.body, password: hash });
+        await newUser.save();
+        return res
+          .status(201)
+          .send({ type: "success", message: "Account created successfully." });
+      });
+    }
   } catch (error) {
     return res
       .status(500)
       .send({ type: "error", message: "Something went wrong" });
   }
-});
-
-AuthRouter.post("/login", async (req, res) => {
+};
+const loginUser = async (req, res) => {
   const { username, password } = req.body;
   const user = await UserModel.findOne({ username });
+  if (!user) {
+    return res.status(500).send({ type: "error", message: "User not found" });
+  }
   const hash = user.password;
   try {
     bcrypt.compare(password, hash, function (err, result) {
@@ -49,11 +57,6 @@ AuthRouter.post("/login", async (req, res) => {
       .status(500)
       .send({ type: "error", message: "Something went wrong" });
   }
-});
+};
 
-module.exports = { AuthRouter };
-// "email":"a@gmail.com",
-//   "number":12344455,
-//   "full_name":"Haresh Solanki",
-//   "username":"haresh007",
-//   "password":"test"
+module.exports = { registerUser, loginUser };
