@@ -134,7 +134,6 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getMyProfile());
   }, []);
-  console.log("yes");
   return (
     <Flex w="100%" position={"relative"}>
       <Sidebar />
@@ -376,6 +375,7 @@ const Profile = () => {
                           justifyContent="center"
                           key={post?._id}
                           onClick={() => handleShowPost(i)}
+                          cursor="pointer"
                         >
                           <Image
                             w="100%"
@@ -408,7 +408,7 @@ const Profile = () => {
                       isLoading={myProfileLoading}
                       colorScheme="blue"
                       mr={3}
-                      onClick={postDetails}
+                      onClick={() => postDetails()}
                     >
                       NEXT
                     </Button>
@@ -417,7 +417,7 @@ const Profile = () => {
                       isLoading={myProfileLoading}
                       colorScheme="blue"
                       mr={3}
-                      onClick={uploadProfile}
+                      onClick={() => uploadProfile()}
                     >
                       UPLOAD
                     </Button>

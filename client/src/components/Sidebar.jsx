@@ -95,7 +95,6 @@ const Sidebar = () => {
     localStorage.removeItem("user");
     nav("/login");
   };
-  console.log(window.location.pathname);
   return (
     <Box
       // display={{ base: "none", md: "flex" }}

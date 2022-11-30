@@ -13,8 +13,23 @@ const AllRoutes = () => {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route exact path="/profile" element={<Profile />} />
-        <Route path="/profile/:id" element={<OthersProfile />} />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <ReqAuth>
+              <Profile />
+            </ReqAuth>
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <ReqAuth>
+              <OthersProfile />
+            </ReqAuth>
+          }
+        />
         <Route
           path="/"
           element={

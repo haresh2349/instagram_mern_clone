@@ -6,7 +6,7 @@ export const getMyProfile = () => (dispatch) => {
   dispatch({
     type: types.GET_MYPROFILE_REQUEST,
   });
-  return axios("https://instagram-moc-server.onrender.com/feed/myProfile", {
+  return axios("https://precious-shrug-crow.cyclic.app/feed/myProfile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -31,7 +31,7 @@ export const getAllposts = () => (dispatch) => {
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
   return axios
-    .get("https://instagram-moc-server.onrender.com/feed/all", {
+    .get("https://precious-shrug-crow.cyclic.app/feed/all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ export const uploadPost = (payload) => (dispatch) => {
   dispatch({
     type: types.UPLOAD_POST_REQUEST,
   });
-  fetch("https://instagram-moc-server.onrender.com/feed/upload", {
+  fetch("https://precious-shrug-crow.cyclic.app/feed/upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const uploadPost = (payload) => (dispatch) => {
 
 export const likeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://instagram-moc-server.onrender.com/feed/like", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/like", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export const likeThePost = (postId) => (dispatch) => {
 };
 export const disLikeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://instagram-moc-server.onrender.com/feed/unlike", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/unlike", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -125,7 +125,7 @@ export const commentToPost = (payload) => (dispatch) => {
   dispatch({
     type: types.POST_COMMENT_REQUEST,
   });
-  return fetch("https://instagram-moc-server.onrender.com/feed/comment", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -157,7 +157,7 @@ export const searchUsers = (username) => (dispatch) => {
     type: types.GET_SEARCH_RESULTS_REQUEST,
   });
   return fetch(
-    `https://instagram-moc-server.onrender.com/feed/search/${username}`,
+    `https://precious-shrug-crow.cyclic.app/feed/search/${username}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -183,7 +183,7 @@ export const getProfile = (id) => (dispatch) => {
   dispatch({
     type: types.GET_PROFILE_REQUEST,
   });
-  return fetch(`https://instagram-moc-server.onrender.com/feed/profile/${id}`, {
+  return fetch(`https://precious-shrug-crow.cyclic.app/feed/profile/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -207,7 +207,7 @@ export const followTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.FOLLOW_USER_REQUEST,
   });
-  return fetch("https://instagram-moc-server.onrender.com/feed/follow", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/follow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -234,7 +234,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.UNFOLLOW_USER_REQUEST,
   });
-  return fetch("https://instagram-moc-server.onrender.com/feed/unfollow", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/unfollow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -259,15 +259,12 @@ export const unFollowTheUser = (id) => (dispatch) => {
 
 export const delteThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch(
-    `https://instagram-moc-server.onrender.com/feed/delete/${postId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  return fetch(`https://precious-shrug-crow.cyclic.app/feed/delete/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       dispatch({
@@ -282,7 +279,7 @@ export const editProfile = (url) => (dispatch) => {
   dispatch({
     type: types.EDIT_PROFILE_REQUEST,
   });
-  return fetch("https://instagram-moc-server.onrender.com/feed/edit", {
+  return fetch("https://precious-shrug-crow.cyclic.app/feed/edit", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
