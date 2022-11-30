@@ -1,9 +1,7 @@
-import { Box, Flex, Heading, Progress, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../components/Footer";
 import MobileNavbar from "../components/MobileNavbar";
 import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
@@ -15,9 +13,10 @@ const Home = () => {
     (store) => store.AppReducer
   );
   useEffect(() => {
-    dispatch(getAllposts());
-  }, [allPosts.length]);
-
+    if (allPosts.length == 0) {
+      dispatch(getAllposts());
+    }
+  }, []);
   return (
     <Flex w="100%" pos={"relative"}>
       <Sidebar />
