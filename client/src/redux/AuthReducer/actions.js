@@ -5,7 +5,7 @@ export const signupUser = (payload) => (dispatch) => {
     type: types.SIGNUP_REQUEST,
   });
   return axios
-    .post("https://precious-shrug-crow.cyclic.app/auth/signup", payload)
+    .post("https://web-production-9754.up.railway.app/auth/signup", payload)
     .then((res) => {
       console.log(res);
       dispatch({
@@ -24,7 +24,7 @@ export const loginUser = (payload) => (dispatch) => {
     type: types.LOGIN_REQUEST,
   });
   return axios
-    .post("https://precious-shrug-crow.cyclic.app/auth/login", payload)
+    .post("https://web-production-9754.up.railway.app/auth/login", payload)
     .then((res) => {
       localStorage.setItem("token", res.data.token);
       dispatch({

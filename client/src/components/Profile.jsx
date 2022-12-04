@@ -61,13 +61,12 @@ const Profile = () => {
   const [like, setLike] = useState(false);
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  let { isOpen, onOpen, onClose } = useDisclosure();
   const { myProfileLoading, isError, myProfile } = useSelector(
     (store) => store.AppReducer
   );
 
   const postDetails = () => {
-    console.log(image);
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "insta-clone");
