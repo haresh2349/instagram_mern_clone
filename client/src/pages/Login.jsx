@@ -37,7 +37,9 @@ export default function Login() {
     password: "",
   });
   const dispatch = useDispatch();
-  const { isLoading, isError, token, type, message } = useSelector(
+  const token = localStorage.getItem("token");
+  console.log(token);
+  const { isLoading, isError, type, message } = useSelector(
     (store) => store.AuthReducer
   );
   const images = [image1, image2, image3, image4];
@@ -56,7 +58,7 @@ export default function Login() {
       dispatch(loginUser(formData));
     } else {
       toast({
-        title: "Enter valid Credentials",
+        title: " please enter valid Credentials",
         status: "error",
         duration: 2000,
         isClosable: true,
