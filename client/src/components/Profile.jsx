@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   CloseButton,
   Flex,
   Grid,
@@ -23,7 +22,6 @@ import {
   ModalOverlay,
   Spinner,
   Text,
-  Textarea,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -35,7 +33,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   commentToPost,
-  deletePost,
   delteThePost,
   disLikeThePost,
   editProfile,
@@ -45,7 +42,6 @@ import {
 } from "../redux/AppReducer/actions";
 import Post from "./Post";
 import { useState } from "react";
-import Slider from "react-slick";
 import { FiMoreHorizontal } from "react-icons/fi";
 import "../App.css";
 import ReactTimeAgo from "react-time-ago";
@@ -105,7 +101,6 @@ const Profile = () => {
   };
 
   const handleShowPost = (i) => {
-    console.log("clikedd");
     setCurr(i);
     setShowPost(true);
   };
@@ -118,7 +113,6 @@ const Profile = () => {
     }
   };
   const handleDisLike = (postId) => {
-    console.log("cllickeedd", like);
     dispatch(disLikeThePost(postId)).then((res) => {
       dispatch(getMyProfile());
     });
@@ -128,6 +122,8 @@ const Profile = () => {
   const handleDelete = (postId) => {
     dispatch(delteThePost(postId)).then((res) => {
       nav("/profile");
+      setShowPost(false);
+      dispatch(getMyProfile());
     });
   };
   useEffect(() => {
@@ -459,7 +455,6 @@ const Profile = () => {
               </Button>
             </Box>
             {myProfile?.posts?.map((post, i) => {
-              console.log(post);
               return (
                 curr == i && (
                   <Flex
@@ -542,7 +537,6 @@ const Profile = () => {
                           </HStack>
                         )}
                         {post?.comments.map((comment) => {
-                          console.log(comment, "cc");
                           return (
                             <HStack p="10px 20px" key={comment._id}>
                               <Image

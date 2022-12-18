@@ -39,10 +39,6 @@ const Searchbar = () => {
       setNotFound(false);
     }
   }, 1000);
-  useEffect(() => {
-    dispatch(getMyProfile());
-  }, []);
-  console.log(notFound);
   return (
     <Flex
       display={{ base: "none", md: "flex" }}
@@ -68,7 +64,6 @@ const Searchbar = () => {
           <Input
             placeholder="Search"
             border={"none"}
-            // value={searchText}
             onChange={(e) => debounced(e.target.value)}
           />
           {searchText && (

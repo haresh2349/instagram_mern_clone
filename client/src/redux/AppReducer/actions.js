@@ -26,7 +26,6 @@ export const getMyProfile = () => (dispatch) => {
 };
 export const getAllposts = () => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  console.log(token, "from getalal");
   dispatch({
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
@@ -37,7 +36,6 @@ export const getAllposts = () => (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res);
       dispatch({
         type: types.GET_ALL_USER_POSTS_SUCCESS,
         payload: res.data,

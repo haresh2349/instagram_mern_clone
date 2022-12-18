@@ -1,11 +1,16 @@
 import {
   Box,
   Button,
+  CloseButton,
   Flex,
   Grid,
   Heading,
   HStack,
+  IconButton,
   Image,
+  Input,
+  Menu,
+  MenuButton,
   Spinner,
   Text,
   VStack,
@@ -17,16 +22,26 @@ import { HiOutlinePlus } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  commentToPost,
+  disLikeThePost,
   followTheUser,
   getMyProfile,
   getProfile,
+  likeThePost,
   unFollowTheUser,
 } from "../redux/AppReducer/actions";
 import Post from "./Post";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import ReactTimeAgo from "react-time-ago";
+import { FiMoreHorizontal } from "react-icons/fi";
 const OthersProfile = () => {
   const [follow, setFollow] = useState(false);
+  const [showPost, setShowPost] = useState(false);
+  const [curr, setCurr] = useState(0);
+  const [comment, setComment] = useState("");
+  const [like, setLike] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
   const { profileLoading, isError, myProfile, profile } = useSelector(
@@ -49,10 +64,46 @@ const OthersProfile = () => {
     });
     setFollow(false);
   };
+
+  const handleLike = (postId) => {
+    if (!like) {
+      setLike(true);
+      dispatch(likeThePost(postId)).then((res) => {
+        dispatch(getProfile(id));
+      });
+    }
+  };
+  const handleDisLike = (postId) => {
+    console.log("cllickeedd", like);
+    dispatch(disLikeThePost(postId)).then((res) => {
+      dispatch(getProfile(id));
+    });
+    setLike(false);
+  };
+
+  const postComment = (postId) => {
+    if (comment) {
+      const payload = {
+        comment,
+        postId,
+      };
+      dispatch(commentToPost(payload)).then((res) => {
+        dispatch(getProfile(id)).then((res) => {
+          setComment("");
+        });
+      });
+    }
+  };
+
+  const handleShowPost = (i) => {
+    setCurr(i);
+    setShowPost(true);
+  };
+
   useEffect(() => {
     dispatch(getProfile(id));
-  }, [id]);
-  console.log("profile");
+  }, []);
+
   return (
     <Flex w="100%" position={"relative"}>
       <Sidebar />
@@ -290,13 +341,14 @@ const OthersProfile = () => {
                 pb="70px"
               >
                 {profile?.posts?.length > 0 &&
-                  profile?.posts?.map((post) => {
+                  profile?.posts?.map((post, i) => {
                     return (
                       <Flex
                         w={{ base: "100px", md: "200px", lg: "293px" }}
                         h={{ base: "100px", md: "200px", lg: "293px" }}
                         alignItems={"center"}
                         key={post?._id}
+                        onClick={() => handleShowPost(i)}
                       >
                         <Image
                           w="100%"
@@ -312,6 +364,289 @@ const OthersProfile = () => {
           </Box>
         )}
       </Box>
+      {showPost && (
+        <Flex
+          bg={"rgba(0, 0, 0, 0.4)"}
+          justifyContent={"center"}
+          alignItems="center"
+          position={"fixed"}
+          margin={"auto"}
+          zIndex={"10000"}
+          top="0"
+          bottom={"0"}
+          left="0"
+          right={"0"}
+        >
+          <Box
+            position={"absolute"}
+            top="5"
+            right={"5"}
+            onClick={() => setShowPost(false)}
+          >
+            <CloseButton size="lg" />
+          </Box>
+          <Flex w={{ base: "100%", md: "80%" }} m="auto" alignItems={"center"}>
+            <Box w="10%">
+              <Button
+                bg="none"
+                disabled={curr === 0}
+                onClick={() => setCurr(curr - 1)}
+              >
+                <FaChevronCircleLeft />
+              </Button>
+            </Box>
+            {profile?.posts?.map((post, i) => {
+              console.log(post);
+              return (
+                curr == i && (
+                  <Flex
+                    w="90%"
+                    flexDir={{ base: "column", md: "row" }}
+                    bg="#FFF"
+                    boxShadow="rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                    key={post._id}
+                  >
+                    <Box w={{ base: "100%", md: "50%" }} bg="#000">
+                      <Image
+                        w="100%"
+                        h={{ base: "200px", md: "600px" }}
+                        objectFit="contain"
+                        src={post.photo}
+                      />
+                    </Box>
+                    <Flex
+                      flexDir={"column"}
+                      w={{ base: "100%", md: "50%" }}
+                      bg="#FFF"
+                    >
+                      <Flex
+                        h="50px"
+                        p="10px 20px"
+                        alignItems={"center"}
+                        justifyContent="space-between"
+                        borderBottom={"1px solid #cecaca"}
+                      >
+                        <HStack>
+                          <Image
+                            w="30px"
+                            h="30px"
+                            objectFit={"cover"}
+                            borderRadius={"50%"}
+                            src={profile?.user?.profilePhoto}
+                          />
+                          <Heading size={"sm"}>
+                            {profile?.user?.username}
+                          </Heading>
+                        </HStack>
+                        <Box>
+                          <Menu>
+                            <MenuButton
+                              as={IconButton}
+                              aria-label="Options"
+                              icon={<FiMoreHorizontal />}
+                              variant="outline"
+                            />
+                          </Menu>
+                          {/* <FiMoreHorizontal /> */}
+                        </Box>
+                      </Flex>
+                      <Box
+                        borderBottom={"1px solid #cecaca"}
+                        h={{ base: "100px", md: "400px" }}
+                        overflowY={"scroll"}
+                      >
+                        {post?.caption != "" && (
+                          <HStack p="10px 20px">
+                            <Image
+                              w="30px"
+                              h="30px"
+                              objectFit={"cover"}
+                              borderRadius={"50%"}
+                              src={profile?.user?.profilePhoto}
+                            />
+                            <Heading size={"sm"}>
+                              {profile?.user?.username}
+                            </Heading>
+                            <Text>{post?.caption}</Text>
+                          </HStack>
+                        )}
+                        {post?.comments.map((comment) => {
+                          console.log(comment, "cc");
+                          return (
+                            <HStack p="10px 20px" key={comment._id}>
+                              <Image
+                                w="30px"
+                                h="30px"
+                                objectFit={"cover"}
+                                borderRadius={"50%"}
+                                src={comment?.postedBy?.profilePhoto}
+                              />
+                              <Heading size={"sm"}>
+                                {comment?.postedBy?.username}
+                              </Heading>
+                              <Text>{comment?.comment}</Text>
+                            </HStack>
+                          );
+                        })}
+                      </Box>
+                      <HStack justifyContent={"space-between"} p="5px 10px">
+                        <HStack>
+                          {post.likes.includes(myProfile?.user?._id) ===
+                            false && (
+                            <Box
+                              onClick={() => handleLike(post._id)}
+                              cursor="pointer"
+                            >
+                              <svg
+                                aria-label="Like"
+                                class="_ab6-"
+                                color="#262626"
+                                fill="#262626"
+                                height="24"
+                                role="img"
+                                viewBox="0 0 24 24"
+                                width="24"
+                              >
+                                <path d="M16.792 3.904A4.989 4.989 0 0 1 21.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 0 1 4.708-5.218 4.21 4.21 0 0 1 3.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 0 1 3.679-1.938m0-2a6.04 6.04 0 0 0-4.797 2.127 6.052 6.052 0 0 0-4.787-2.127A6.985 6.985 0 0 0 .5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 0 0 3.518 3.018 2 2 0 0 0 2.174 0 45.263 45.263 0 0 0 3.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 0 0-6.708-7.218Z"></path>
+                              </svg>
+                            </Box>
+                          )}
+                          {post.likes.includes(myProfile?.user?._id) ===
+                            true && (
+                            <Box
+                              onClick={() => handleDisLike(post._id)}
+                              cursor="pointer"
+                            >
+                              <svg
+                                aria-label="Unlike"
+                                class="_ab6-"
+                                color="#ed4956"
+                                fill="#ed4956"
+                                height="24"
+                                role="img"
+                                viewBox="0 0 48 48"
+                                width="24"
+                              >
+                                <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
+                              </svg>
+                            </Box>
+                          )}
+                          <Box cursor="pointer">
+                            <svg
+                              aria-label="Comment"
+                              class="_ab6-"
+                              color="#262626"
+                              fill="#262626"
+                              height="24"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="24"
+                            >
+                              <path
+                                d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                              ></path>
+                            </svg>
+                          </Box>
+                          <Box cursor="pointer">
+                            <svg
+                              aria-label="Share Post"
+                              class="_ab6-"
+                              color="#262626"
+                              fill="#262626"
+                              height="24"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="24"
+                            >
+                              <line
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                x1="22"
+                                x2="9.218"
+                                y1="3"
+                                y2="10.083"
+                              ></line>
+                              <polygon
+                                fill="none"
+                                points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334"
+                                stroke="currentColor"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                              ></polygon>
+                            </svg>
+                          </Box>
+                        </HStack>
+                        <Box>
+                          <svg
+                            aria-label="Save"
+                            class="_ab6-"
+                            color="#262626"
+                            fill="#262626"
+                            height="24"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            width="24"
+                          >
+                            <polygon
+                              fill="none"
+                              points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                            ></polygon>
+                          </svg>
+                        </Box>
+                      </HStack>
+                      <Text p="5px 10px">
+                        Liked by{" "}
+                        <Text as={"span"} fontWeight="600" mr="3px">
+                          {post?.likes?.length}
+                        </Text>
+                        People
+                      </Text>
+                      <Text p="10px" fontSize={"11px"} color="#d9d6d6">
+                        <ReactTimeAgo date={post?.createdAt} locale="en-US" />
+                      </Text>
+                      <HStack borderTop={"1px solid #ebe8e8"} p="0 10px">
+                        <Input
+                          placeholder="Add a comment..."
+                          border={"none"}
+                          value={comment || ""}
+                          borderBottom="1px solid #ebe8e8"
+                          onChange={(e) => setComment(e.target.value)}
+                        />
+                        <Text
+                          color={"#0095F6"}
+                          onClick={() => postComment(post._id)}
+                          cursor="pointer"
+                        >
+                          Post
+                        </Text>
+                      </HStack>
+                    </Flex>
+                  </Flex>
+                )
+              );
+            })}
+            <Box w="10%" textAlign={"end"}>
+              <Button
+                bg="none"
+                disabled={curr == profile?.posts?.length - 1}
+                onClick={() => setCurr(curr + 1)}
+              >
+                <FaChevronCircleRight />
+              </Button>
+            </Box>
+          </Flex>
+        </Flex>
+      )}
     </Flex>
   );
 };

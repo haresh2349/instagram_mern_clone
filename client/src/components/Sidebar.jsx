@@ -87,7 +87,7 @@ const Sidebar = () => {
       dispatch(uploadPost(payload));
       setCaption("");
       nav("/");
-      isOpen = false;
+      onClose();
     }
   };
   const logOut = () => {
@@ -97,7 +97,6 @@ const Sidebar = () => {
   };
   return (
     <Box
-      // display={{ base: "none", md: "flex" }}
       w={{ base: "100%", md: "80px", lg: hideSidebar ? "80px" : "15%" }}
       h={{ base: "70px", md: "100vh" }}
       position={"fixed"}

@@ -27,8 +27,7 @@ import image3 from "../images/instaImg3.png";
 import image4 from "../images/instaImg4.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/AuthReducer/actions";
-import { getMyProfile } from "../redux/AppReducer/actions";
+import { loginUser, resetAuth } from "../redux/AuthReducer/actions";
 import Footer from "../components/Footer";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,8 +37,8 @@ export default function Login() {
   });
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-  console.log(token);
-  const { isLoading, isError, type, message } = useSelector(
+  const user = localStorage.getItem("user");
+  let { isLoading, isError, type, message } = useSelector(
     (store) => store.AuthReducer
   );
   const images = [image1, image2, image3, image4];
@@ -63,6 +62,10 @@ export default function Login() {
         duration: 2000,
         isClosable: true,
       });
+      setFormData({
+        username: "",
+        password: "",
+      });
     }
   };
   useEffect(() => {
@@ -75,16 +78,30 @@ export default function Login() {
     };
   }, [count]);
   useEffect(() => {
-    if (token) {
+    if (type === "success" && token) {
       toast({
         title: message,
         status: type,
         duration: 2000,
         isClosable: true,
       });
+      dispatch(resetAuth());
       navigate("/");
+    } else if (type === "error") {
+      toast({
+        title: message,
+        status: type,
+        duration: 3000,
+        isClosable: true,
+      });
+      dispatch(resetAuth());
+      setFormData({
+        username: "",
+        password: "",
+      });
     }
-  }, [token]);
+  }, [type]);
+
   return (
     <>
       <Flex justify={"center"} p={"50px"} bg={"#FAFAFA"}>
@@ -122,6 +139,7 @@ export default function Login() {
                     fontSize="sm"
                     name="username"
                     onChange={handleChange}
+                    value={formData.username}
                   />
                 </FormControl>
                 <FormControl id="password" isRequired>
@@ -134,6 +152,7 @@ export default function Login() {
                       fontSize="sm"
                       name="password"
                       onChange={handleChange}
+                      value={formData.password}
                     />
                     <InputRightElement h={"full"}>
                       <Button

@@ -51,8 +51,14 @@ export const reducer = (state = initState, { type, payload }) => {
         isLoading: false,
         isError: true,
         authStatus: false,
-        type: "error",
-        message: "Please enter right details",
+        type: payload.type,
+        message: payload.message,
+      };
+    case types.RESET_AUTH:
+      return {
+        ...state,
+        type: "",
+        message: "",
       };
     default:
       return state;

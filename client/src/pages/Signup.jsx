@@ -22,7 +22,7 @@ import { AiFillFacebook } from "react-icons/ai";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../redux/AuthReducer/actions";
+import { resetAuth, signupUser } from "../redux/AuthReducer/actions";
 import { useEffect } from "react";
 import Footer from "../components/Footer";
 export default function Signup() {
@@ -57,11 +57,19 @@ export default function Signup() {
       if (formData.full_name.length >= 5 && formData.password.length >= 5) {
         dispatch(signupUser(formData));
       } else {
+        if (formData.email.includes("@") === false) {
+          toast({
+            title: "please enter valid email address",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
         if (formData.full_name.length < 5) {
           toast({
             title: "Fullname should have minimum five characters",
             status: "error",
-            duration: 2000,
+            duration: 3000,
             isClosable: true,
           });
         }
@@ -69,7 +77,7 @@ export default function Signup() {
           toast({
             title: "Password should have minimum five characters",
             status: "error",
-            duration: 2000,
+            duration: 3000,
             isClosable: true,
           });
         }
@@ -78,7 +86,7 @@ export default function Signup() {
       toast({
         title: "Please Enter valid details",
         status: "error",
-        duration: 2000,
+        duration: 3000,
         isClosable: true,
       });
     }
@@ -95,6 +103,7 @@ export default function Signup() {
         navigate("/login");
       }
     }
+    dispatch(resetAuth());
   }, [type]);
   return (
     <>

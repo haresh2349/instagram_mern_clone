@@ -26,15 +26,30 @@ export const loginUser = (payload) => (dispatch) => {
   return axios
     .post("https://web-production-9754.up.railway.app/auth/login", payload)
     .then((res) => {
-      localStorage.setItem("token", res.data.token);
-      dispatch({
-        type: types.LOGIN_SUCCESS,
-        payload: res.data,
-      });
+      if (res.data.type === "success") {
+        localStorage.setItem("token", res.data.token);
+        dispatch({
+          type: types.LOGIN_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: types.LOGIN_FAILURE,
+          payload: res.data,
+        });
+      }
     })
     .catch((err) => {
       dispatch({
         type: types.LOGIN_FAILURE,
+        payload: err.response.data,
       });
+      return err;
     });
+};
+
+export const resetAuth = () => (dispatch) => {
+  return dispatch({
+    type: types.RESET_AUTH,
+  });
 };
