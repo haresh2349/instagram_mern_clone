@@ -6,7 +6,7 @@ export const getMyProfile = () => (dispatch) => {
   dispatch({
     type: types.GET_MYPROFILE_REQUEST,
   });
-  return axios("https://web-production-9754.up.railway.app/feed/myProfile", {
+  return axios("https://web-production-7804.up.railway.app/feed/myProfile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -30,7 +30,7 @@ export const getAllposts = () => (dispatch) => {
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
   return axios
-    .get("https://web-production-9754.up.railway.app/feed/all", {
+    .get("https://web-production-7804.up.railway.app/feed/all", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -54,7 +54,7 @@ export const uploadPost = (payload) => (dispatch) => {
   dispatch({
     type: types.UPLOAD_POST_REQUEST,
   });
-  fetch("https://web-production-9754.up.railway.app/feed/upload", {
+  fetch("https://web-production-7804.up.railway.app/feed/upload", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export const uploadPost = (payload) => (dispatch) => {
 
 export const likeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://web-production-9754.up.railway.app/feed/like", {
+  return fetch("https://web-production-7804.up.railway.app/feed/like", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export const likeThePost = (postId) => (dispatch) => {
 };
 export const disLikeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://web-production-9754.up.railway.app/feed/unlike", {
+  return fetch("https://web-production-7804.up.railway.app/feed/unlike", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export const commentToPost = (payload) => (dispatch) => {
   dispatch({
     type: types.POST_COMMENT_REQUEST,
   });
-  return fetch("https://web-production-9754.up.railway.app/feed/comment", {
+  return fetch("https://web-production-7804.up.railway.app/feed/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -155,7 +155,7 @@ export const searchUsers = (username) => (dispatch) => {
     type: types.GET_SEARCH_RESULTS_REQUEST,
   });
   return fetch(
-    `https://web-production-9754.up.railway.app/feed/search/${username}`,
+    `https://web-production-7804.up.railway.app/feed/search/${username}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -182,7 +182,7 @@ export const getProfile = (id) => (dispatch) => {
     type: types.GET_PROFILE_REQUEST,
   });
   return fetch(
-    `https://web-production-9754.up.railway.app/feed/profile/${id}`,
+    `https://web-production-7804.up.railway.app/feed/profile/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -208,7 +208,7 @@ export const followTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.FOLLOW_USER_REQUEST,
   });
-  return fetch("https://web-production-9754.up.railway.app/feed/follow", {
+  return fetch("https://web-production-7804.up.railway.app/feed/follow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -235,7 +235,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.UNFOLLOW_USER_REQUEST,
   });
-  return fetch("https://web-production-9754.up.railway.app/feed/unfollow", {
+  return fetch("https://web-production-7804.up.railway.app/feed/unfollow", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -261,7 +261,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
 export const delteThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
   return fetch(
-    `https://web-production-9754.up.railway.app/feed/delete/${postId}`,
+    `https://web-production-7804.up.railway.app/feed/delete/${postId}`,
     {
       method: "DELETE",
       headers: {
@@ -283,7 +283,7 @@ export const editProfile = (url) => (dispatch) => {
   dispatch({
     type: types.EDIT_PROFILE_REQUEST,
   });
-  return fetch("https://web-production-9754.up.railway.app/feed/edit", {
+  return fetch("https://web-production-7804.up.railway.app/feed/edit", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
