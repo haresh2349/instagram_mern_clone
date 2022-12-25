@@ -74,7 +74,6 @@ const OthersProfile = () => {
     }
   };
   const handleDisLike = (postId) => {
-    console.log("cllickeedd", like);
     dispatch(disLikeThePost(postId)).then((res) => {
       dispatch(getProfile(id));
     });
@@ -396,7 +395,6 @@ const OthersProfile = () => {
               </Button>
             </Box>
             {profile?.posts?.map((post, i) => {
-              console.log(post);
               return (
                 curr == i && (
                   <Flex
@@ -471,7 +469,6 @@ const OthersProfile = () => {
                           </HStack>
                         )}
                         {post?.comments.map((comment) => {
-                          console.log(comment, "cc");
                           return (
                             <HStack p="10px 20px" key={comment._id}>
                               <Image

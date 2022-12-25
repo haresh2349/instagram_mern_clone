@@ -7,7 +7,6 @@ export const signupUser = (payload) => (dispatch) => {
   return axios
     .post("https://web-production-7804.up.railway.app/auth/signup", payload)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: types.SIGNUP_SUCCESS,
         payload: res.data,

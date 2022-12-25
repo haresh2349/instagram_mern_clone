@@ -18,7 +18,6 @@ export const getMyProfile = () => (dispatch) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: types.GET_MYPROFILE_FAILURE,
       });
@@ -42,7 +41,6 @@ export const getAllposts = () => (dispatch) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: types.GET_ALL_USER_POSTS_FAILURE,
       });
@@ -74,7 +72,6 @@ export const uploadPost = (payload) => (dispatch) => {
       dispatch(getAllposts());
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: types.UPLOAD_POST_FAILURE,
       });
@@ -135,7 +132,6 @@ export const commentToPost = (payload) => (dispatch) => {
       return res.json();
     })
     .then((res) => {
-      console.log(res, "comment");
       return dispatch({
         type: types.POST_COMMENT_SUCCESS,
         payload: res,
