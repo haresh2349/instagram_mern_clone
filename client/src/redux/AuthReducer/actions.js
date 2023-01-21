@@ -5,7 +5,7 @@ export const signupUser = (payload) => (dispatch) => {
     type: types.SIGNUP_REQUEST,
   });
   return axios
-    .post("https://web-production-7804.up.railway.app/auth/signup", payload)
+    .post("https://web-production-6791.up.railway.app/auth/signup", payload)
     .then((res) => {
       dispatch({
         type: types.SIGNUP_SUCCESS,
@@ -23,7 +23,7 @@ export const loginUser = (payload) => (dispatch) => {
     type: types.LOGIN_REQUEST,
   });
   return axios
-    .post("https://web-production-7804.up.railway.app/auth/login", payload)
+    .post("https://web-production-6791.up.railway.app/auth/login", payload)
     .then((res) => {
       if (res.data.type === "success") {
         localStorage.setItem("token", res.data.token);

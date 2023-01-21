@@ -648,4 +648,4 @@ const OthersProfile = () => {
   );
 };
 
-export default OthersProfile;
+export default React.memo(OthersProfile);
