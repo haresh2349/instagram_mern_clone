@@ -1,12 +1,13 @@
 import axios from "axios";
 import * as types from "./actionTypes";
+import { configURL } from "../../config/config";
 
 export const getMyProfile = () => (dispatch) => {
   const token = localStorage.getItem("token") || "";
   dispatch({
     type: types.GET_MYPROFILE_REQUEST,
   });
-  return axios("https://web-production-6791.up.railway.app/feed/myProfile", {
+  return axios(`${configURL.url}/feed/myProfile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -29,7 +30,7 @@ export const getAllposts = () => (dispatch) => {
     type: types.GET_ALL_USER_POSTS_REQUEST,
   });
   return axios
-    .get("https://web-production-6791.up.railway.app/feed/all", {
+    .get(`${configURL.url}/feed/all`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -52,7 +53,7 @@ export const uploadPost = (payload) => (dispatch) => {
   dispatch({
     type: types.UPLOAD_POST_REQUEST,
   });
-  fetch("https://web-production-6791.up.railway.app/feed/upload", {
+  fetch(`${configURL.url}/feed/upload`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,7 +81,7 @@ export const uploadPost = (payload) => (dispatch) => {
 
 export const likeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://web-production-6791.up.railway.app/feed/like", {
+  return fetch(`${configURL.url}/feed/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -98,7 +99,7 @@ export const likeThePost = (postId) => (dispatch) => {
 };
 export const disLikeThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch("https://web-production-6791.up.railway.app/feed/unlike", {
+  return fetch(`${configURL.url}/feed/unlike`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -120,7 +121,7 @@ export const commentToPost = (payload) => (dispatch) => {
   dispatch({
     type: types.POST_COMMENT_REQUEST,
   });
-  return fetch("https://web-production-6791.up.railway.app/feed/comment", {
+  return fetch(`${configURL.url}/feed/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -150,14 +151,11 @@ export const searchUsers = (username) => (dispatch) => {
   dispatch({
     type: types.GET_SEARCH_RESULTS_REQUEST,
   });
-  return fetch(
-    `https://web-production-6791.up.railway.app/feed/search/${username}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  return fetch(`${configURL.url}/feed/search/${username}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       dispatch({
@@ -177,14 +175,11 @@ export const getProfile = (id) => (dispatch) => {
   dispatch({
     type: types.GET_PROFILE_REQUEST,
   });
-  return fetch(
-    `https://web-production-6791.up.railway.app/feed/profile/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  return fetch(`${configURL.url}/feed/profile/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       dispatch({
@@ -204,7 +199,7 @@ export const followTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.FOLLOW_USER_REQUEST,
   });
-  return fetch("https://web-production-6791.up.railway.app/feed/follow", {
+  return fetch(`${configURL.url}/feed/follow`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -231,7 +226,7 @@ export const unFollowTheUser = (id) => (dispatch) => {
   dispatch({
     type: types.UNFOLLOW_USER_REQUEST,
   });
-  return fetch("https://web-production-6791.up.railway.app/feed/unfollow", {
+  return fetch(`${configURL.url}/feed/unfollow`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -256,15 +251,12 @@ export const unFollowTheUser = (id) => (dispatch) => {
 
 export const delteThePost = (postId) => (dispatch) => {
   const token = localStorage.getItem("token") || "";
-  return fetch(
-    `https://web-production-6791.up.railway.app/feed/delete/${postId}`,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
+  return fetch(`${configURL.url}/feed/delete/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       dispatch({
@@ -279,7 +271,7 @@ export const editProfile = (url) => (dispatch) => {
   dispatch({
     type: types.EDIT_PROFILE_REQUEST,
   });
-  return fetch("https://web-production-6791.up.railway.app/feed/edit", {
+  return fetch(`${configURL.url}/feed/edit`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
