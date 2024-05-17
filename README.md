@@ -6,7 +6,7 @@ A simple, fun & creative way to capture, edit & share photos, videos & messages 
 
 **Original website link**: https://www.instagram.com
 
-**Live link of project**:  https://instagram-haresh-2309.netlify.app
+**Live link of project**:  https://instagram-mern-clone-6.onrender.com/
 
 ## Authors
 - Haresh Solanki
